@@ -1,34 +1,34 @@
-"use client";
+"use client"
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react"
 
-export type Language = "en" | "zh" | "ja";
+export type Language = "en" | "zh" | "ja"
 
 type Translations = {
   [key in Language]: {
-    title: string;
-    subtitle: string;
-    tryNow: string;
-    fast: string;
-    fastDesc: string;
-    accurate: string;
-    accurateDesc: string;
-    simple: string;
-    simpleDesc: string;
-    inputPlaceholder: string;
-    convertBtn: string;
-    converting: string;
-    outputSys: string;
-    inputSys: string;
-    chars: string;
-    words: string;
-    back: string;
-    error: string;
-    empty: string;
-    waiting: string;
-    download: string;
-  };
-};
+    title: string
+    subtitle: string
+    tryNow: string
+    fast: string
+    fastDesc: string
+    accurate: string
+    accurateDesc: string
+    simple: string
+    simpleDesc: string
+    inputPlaceholder: string
+    convertBtn: string
+    converting: string
+    outputSys: string
+    inputSys: string
+    chars: string
+    words: string
+    back: string
+    error: string
+    empty: string
+    waiting: string
+    download: string
+  }
+}
 
 export const translations: Translations = {
   en: {
@@ -99,31 +99,31 @@ export const translations: Translations = {
     empty: "結果が空です",
     waiting: "入力を待っています...",
     download: "TXT ダウンロード",
-  }
-};
+  },
+}
 
 type LanguageContextType = {
-  lang: Language;
-  setLang: (lang: Language) => void;
-  t: Translations["en"];
-};
+  lang: Language
+  setLang: (lang: Language) => void
+  t: Translations["en"]
+}
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>("en");
+  const [lang, setLang] = useState<Language>("en")
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
       {children}
     </LanguageContext.Provider>
-  );
+  )
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
+  const context = useContext(LanguageContext)
   if (context === undefined) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
+    throw new Error("useLanguage must be used within a LanguageProvider")
   }
-  return context;
+  return context
 }

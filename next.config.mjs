@@ -4,6 +4,6 @@ const nextConfig = {
     // Ensure kuromoji (which uses Node.js fs) stays server-side only
     serverComponentsExternalPackages: ["kuromoji", "kuroshiro-analyzer-kuromoji"],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

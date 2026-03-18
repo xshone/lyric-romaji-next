@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [
@@ -16,7 +16,7 @@ const config: Config = {
           secondary: "#FFD93D",
           muted: "#C4B5FD",
           white: "#FFFFFF",
-        }
+        },
       },
       fontFamily: {
         heading: ["var(--font-space-grotesk)", "sans-serif"],
@@ -35,13 +35,13 @@ const config: Config = {
         "spin-slow": {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
-        }
+        },
       },
       animation: {
         "spin-slow": "spin-slow 10s linear infinite",
-      }
+      },
     },
   },
   plugins: [],
-};
-export default config;
+}
+export default config

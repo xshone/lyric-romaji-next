@@ -4,12 +4,12 @@
 
 @layer base {
   body {
-    background-color: #FFFDF5;
+    background-color: #fffdf5;
     color: #000;
   }
-  
+
   ::selection {
-    background: #FFD93D;
+    background: #ffd93d;
     color: #000;
   }
 
@@ -19,18 +19,18 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #FFFDF5;
+    background: #fffdf5;
     border-left: 4px solid #000;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #FF6B6B;
+    background: #ff6b6b;
     border-left: 4px solid #000;
     border-bottom: 4px solid #000;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #C4B5FD;
+    background: #c4b5fd;
   }
 }
 

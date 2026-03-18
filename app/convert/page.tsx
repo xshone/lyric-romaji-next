@@ -1,77 +1,77 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import { ArrowLeft, Play, XSquare, Download } from "lucide-react";
-import { useLanguage } from "@/lib/i18n";
+import { useState } from "react"
+import Link from "next/link"
+import { ArrowLeft, Play, XSquare, Download } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
-const PLACEHOLDER = `春はあけぼの\nやうやう白くなりゆく山際`;
+const PLACEHOLDER = `春はあけぼの\nやうやう白くなりゆく山際`
 
 export default function ConvertPage() {
-  const { t } = useLanguage();
-  const [input, setInput] = useState("");
-  const [result, setResult] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { t } = useLanguage()
+  const [input, setInput] = useState("")
+  const [result, setResult] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleConvert() {
-    if (!input.trim()) return;
-    setLoading(true);
-    setResult(null);
-    setError(null);
+    if (!input.trim()) return
+    setLoading(true)
+    setResult(null)
+    setError(null)
 
     try {
       const res = await fetch("/api/romaji", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: input }),
-      });
+      })
 
-      const data = await res.json();
+      const data = await res.json()
 
       if (!res.ok) {
-        setError(data.error ?? "Unknown error");
+        setError(data.error ?? "Unknown error")
       } else {
-        setResult(data.result as string);
+        setResult(data.result as string)
       }
     } catch {
-      setError("Network error. Please check your connection.");
+      setError("Network error. Please check your connection.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
-  const resultLines = result?.split("\n") ?? [];
+  const resultLines = result?.split("\n") ?? []
 
   function handleDownload() {
-    if (!result) return;
-    const lines = result.split("\n");
-    const parts: string[] = [];
+    if (!result) return
+    const lines = result.split("\n")
+    const parts: string[] = []
     for (let i = 0; i < lines.length; i += 2) {
-      const original = lines[i] ?? "";
-      const romaji = lines[i + 1] ?? "";
+      const original = lines[i] ?? ""
+      const romaji = lines[i + 1] ?? ""
       if (original === "__PARA__") {
-        parts.push("");
+        parts.push("")
       } else {
-        parts.push(original);
-        parts.push(romaji);
+        parts.push(original)
+        parts.push(romaji)
       }
     }
-    const blob = new Blob([parts.join("\n")], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "romaji.txt";
-    a.click();
-    URL.revokeObjectURL(url);
+    const blob = new Blob([parts.join("\n")], { type: "text/plain;charset=utf-8" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "romaji.txt"
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   return (
     <main className="w-full h-full flex flex-col gap-6 relative">
       {/* Header controls */}
       <div className="flex justify-between items-center bg-white border-4 border-neo-black shadow-neo-sm p-4 w-full">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="flex items-center gap-2 font-black uppercase text-xl hover:bg-neo-secondary px-3 py-1 -rotate-1 border-2 border-transparent hover:border-neo-black transition-all"
         >
           <ArrowLeft className="stroke-[4px]" />
@@ -79,10 +79,14 @@ export default function ConvertPage() {
         </Link>
         <div className="flex gap-4">
           <button
-            onClick={() => { setInput(""); setResult(null); setError(null); }}
+            onClick={() => {
+              setInput("")
+              setResult(null)
+              setError(null)
+            }}
             className="flex items-center gap-2 font-bold px-4 py-2 border-4 border-neo-black bg-white hover:bg-neo-muted shadow-neo-sm active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
           >
-            <XSquare className="stroke-[3px]" /> 
+            <XSquare className="stroke-[3px]" />
           </button>
           <button
             onClick={handleConvert}
@@ -147,22 +151,27 @@ export default function ConvertPage() {
             ) : (
               <div>
                 {(() => {
-                  const groups: Array<{ original: string; romaji: string }> = [];
+                  const groups: Array<{ original: string; romaji: string }> = []
                   for (let i = 0; i < resultLines.length; i += 2) {
-                    const original = resultLines[i] ?? "";
-                    const romaji = resultLines[i + 1] ?? "";
-                    groups.push({ original, romaji });
+                    const original = resultLines[i] ?? ""
+                    const romaji = resultLines[i + 1] ?? ""
+                    groups.push({ original, romaji })
                   }
                   return groups.map((g, idx) =>
                     g.original === "__PARA__" ? (
                       <div key={idx} className="h-5" />
                     ) : (
-                      <div key={idx} className="group relative border-l-4 border-transparent hover:border-neo-accent pl-4 py-1 transition-all">
+                      <div
+                        key={idx}
+                        className="group relative border-l-4 border-transparent hover:border-neo-accent pl-4 py-1 transition-all"
+                      >
                         <p className="text-lg font-bold text-neo-black">{g.original}</p>
-                        <p className="text-lg font-black text-neo-accent tracking-wide">{g.romaji}</p>
+                        <p className="text-lg font-black text-neo-accent tracking-wide">
+                          {g.romaji}
+                        </p>
                       </div>
-                    )
-                  );
+                    ),
+                  )
                 })()}
               </div>
             )}
@@ -170,5 +179,5 @@ export default function ConvertPage() {
         </div>
       </div>
     </main>
-  );
+  )
 }
