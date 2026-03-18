@@ -80,7 +80,6 @@ const SIMPLIFIED_TO_JAPANESE: Record<string, string> = {
   电: "電",
   门: "門",
   问: "問",
-  门: "門",
   万: "万",
   为: "為",
   与: "与",
