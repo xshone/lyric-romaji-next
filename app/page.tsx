@@ -28,14 +28,20 @@ export default function HomePage() {
             {t.subtitle}
           </p>
 
-          <div>
+          <div className="pt-8 relative inline-block">
+            {/* Eye-catching oversized CTA */}
             <Link
               href="/convert"
-              className="inline-flex items-center gap-4 bg-neo-accent border-4 border-neo-black shadow-neo-md px-8 py-5 font-black text-2xl uppercase tracking-wider hover:shadow-neo-lg hover:-translate-y-1 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-100"
+              className="group relative inline-flex items-center justify-center gap-6 bg-neo-secondary border-4 border-neo-black shadow-[10px_10px_0px_0px_#000] px-10 py-6 md:px-14 md:py-8 font-black text-3xl md:text-4xl uppercase tracking-widest hover:-translate-y-2 hover:-rotate-1 hover:shadow-[16px_16px_0px_0px_#000] active:translate-x-3 active:translate-y-3 active:shadow-none transition-all duration-200 z-10"
             >
-              {t.tryNow}
-              <div className="bg-white border-2 border-neo-black p-1 rounded-full">
-                <ArrowRight className="w-6 h-6 stroke-[4px]" />
+              <span className="text-neo-black">{t.tryNow}</span>
+              <div className="bg-white border-4 border-neo-black p-2 rounded-full group-hover:translate-x-2 transition-all duration-300 shadow-neo-sm group-hover:bg-neo-accent group-hover:text-white">
+                <ArrowRight className="w-8 h-8 md:w-10 md:h-10 stroke-[4px]" />
+              </div>
+
+              {/* Fun floating pointer */}
+              <div className="absolute -top-8 -right-6 lg:-right-12 bg-neo-muted text-neo-black border-4 border-neo-black px-6 py-2 rotate-[15deg] font-black text-xl shadow-neo-sm animate-bounce origin-bottom z-20">
+                START! ✨
               </div>
             </Link>
           </div>
